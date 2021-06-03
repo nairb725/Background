@@ -12,8 +12,7 @@
 <div class="doc">
     <h1>Background</h1>
 
-    <canvas width="1920" height="1080" id="cvshd"></canvas>
-    <canvas width="1600" height="1200" id="cvs"></canvas>
+   
 
 
 
@@ -25,12 +24,10 @@
                         First Name: 
                     </th>
                     <td>
-                        <input type="text" id="first" placeholder="firstname" tabindex="1">
+                        <input type="text" id="first" placeholder="First name" tabindex="1">
                     </td>
                     <td rowspan="2" aligne="center" >
-                        <button id="createimage" tabindex="4">Save Image</button>
-
-                       
+                        <button id="createimage" tabindex="4">Download</button>
                     </td>
                 </tr>
                 <tr>
@@ -38,24 +35,89 @@
                         Last Name:
                     </th>
                     <td>
-                        <input type="text" id="last" placeholder="lastname" tabindex="2">
+                        <input type="text" id="last" placeholder="Last name" tabindex="2">
                     </td>
                 </tr>  
                 <tr>
-                    <th>
-                         location:<br/>
+                    <th> 
+                         Job:<br/>
                     </th>
                     <td>
-                        <input type="text" id="pronoun" placeholder="pronouns" tabindex="3">
+                        <input type="text" id="job" placeholder="Job" tabindex="3">
+                    </td>
+                </tr> 
+                <tr>
+                    <th>
+                         Location:<br/>
+                    </th>
+                    <td>
+                        <input type="text" id="location" placeholder="Location" tabindex="4">
                     </td>
                 </tr>  
-              
-                
-                              
+                <tr id="style">
+                    <th>
+                        Styles:
+                    </th>
+                    <td>
+                        <input type="radio" id="style1" name="style" value="1" checked="checked">
+                        <label for="style1">1</label>
+                        
+                        <input type="radio" id="style2" name="style" value="2" checked="checked">
+                        <label for="style2">2</label>
+
+                        <input type="radio" id="style3" name="style" value="3" checked="checked">
+                        <label for="style3">3</label>
+
+                        <input type="radio" id="style4" name="style" value="4" checked="checked">
+                        <label for="style4">4</label>
+
+                        <input type="radio" id="style5" name="style" value="5" checked="checked">
+                        <label for="style5">5</label>
+                    </td>
+                </tr>                
             </table>
            
         </p>
 
     </div>
     
- 
+    <div id="imgs" width="800" height="600">
+        
+    </div>
+    <div id="explanation" style="display:none">
+        
+    </div>
+    <a id="downloadlink" download="zoombackground.jpg" href=""></a>
+
+    
+
+</div>
+<script>
+    var $createimage,$imgs,$placeLeft, $placeRight,$first, $last, $job, $location, $style1, $style2, $style3, $style4, $style5;
+
+
+
+    function takeElement () {
+  
+        
+       
+        $createimage = document.getElementById('createimage');
+        $style1 = document.getElementById('style1');
+        $style2 = document.getElementById('style2');
+        $style3 = document.getElementById('style3');
+        $style4 = document.getElementById('style4');
+        $style5 = document.getElementById('style5');
+
+
+        $imgs = document.getElementById('imgs');
+
+        $first =document.getElementById('first');
+        $last = document.getElementById('last');
+        $job = document.getElementById('job');
+        $location = document.getElementById('location');
+
+
+    }
+</script>
+</body>
+</html>

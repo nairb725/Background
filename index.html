@@ -8,11 +8,12 @@
 </head>
 <body>
 
-
-<div class="doc">
+<!---text area-->
+<div class="bloc">
     <h1>Background</h1>
 
-   
+    <canvas width="1920" height="1080" id="cvshd"></canvas>
+    <canvas width="1600" height="1200" id="cvs"></canvas>
 
 
 
@@ -80,27 +81,34 @@
         </p>
 
     </div>
-    
+    <!---canva picture-->
     <div id="imgs" width="800" height="600">
         
     </div>
-    <div id="explanation" style="display:none">
+    <div id="explanation" style="display:none"></div>
         
     </div>
-    <a id="downloadlink" download="zoombackground.jpg" href=""></a>
+    <a id="downloadlink" download="zoombackground.jpg" href="">Download Background</a>
 
     
 
 </div>
 <script>
-    var $createimage,$imgs,$placeLeft, $placeRight,$first, $last, $job, $location, $style1, $style2, $style3, $style4, $style5;
+    var canvas, canvashd, ctxorig, ctxhd,
+     $createimage,$imgs,$placeLeft, $placeRight,$first, $last, $job, $location, $style1, $style2, $style3, $style4, $style5;
 
 
 
     function takeElement () {
-  
+        canvas = document.getElementById('cvs');
+        canvashd = document.getElementById('cvshd');
+
+
+        ctxorig = canvas.getContext('2d');
+        ctxhd = canvashd.getContext('2d');
+
         
-       
+       //get id style
         $createimage = document.getElementById('createimage');
         $style1 = document.getElementById('style1');
         $style2 = document.getElementById('style2');
@@ -110,14 +118,201 @@
 
 
         $imgs = document.getElementById('imgs');
-
+        //get id text
         $first =document.getElementById('first');
         $last = document.getElementById('last');
         $job = document.getElementById('job');
         $location = document.getElementById('location');
 
+        //$placeLeft = document.getElementById('placeLeft');
+        //$placeRight = document.getElementById('placeRight');
+
+
+        //taking value on string
+        var queryString = window.job.search;
+
+            
+        var urlParams = new URLSearchParams(queryString);
+        var firstVal  = urlParams.get('first');
+        var lastVal = urlParams.get('last');
+        var locationtVal = urlParams.get('location');
+
+        if (firstVal){$first.value = firstVal};
+        if (lastVal){$last.value = lastVal};
+
+
+        refresh();
+        //need first and last to show canva
+        if (firstVal && lastVal){
+            updateImage();
+        }
+    }
+
+    //canva resolution canva to picture
+    function drawHD(){
+        draw(ctxhd, 1920, 1080);
+            document.getElementById('explanation').style="display:block";
+
+            var type = 'jpg',
+                w = 1920,
+                h = 1080;
+            $imgs.innerHTML = '';
+            $imgs.appendChild(Canvas2Image.convertToImage(canvashd, w, h, type))
+    }
+
+  
+
+    function updateImage(){
+            drawHD();
+    }
+
+
+    function refresh () {
+        //create picture and save
+        $createimage.onclick = function (e) {
+            updateImage();
+           
+            Canvas2Image=Canvas2Image.saveAsImage(canvashd, 1920, 1080, 'jpg');   
+        }
+        //refresh when input
+        $last.oninput = function (e) {
+            updateImage();
+        } 
+        $first.oninput = function (e) {
+            updateImage();
+        }
+        $job.oninput = function (e) {
+            updateImage();
+        }
+        $location.oninput = function (e) {
+            updateImage();
+        } 
+        $style1.oninput = function (e) {
+            updateImage();
+        }
+        $style2.oninput = function (e) {
+            updateImage();
+        }
+        $style3.oninput = function (e) {
+            updateImage();
+        }
+        $style4.oninput = function (e) {
+            updateImage();
+        }
+        $style5.oninput = function (e) {
+            updateImage();
+        }
+
 
     }
+
+    //style chosen
+    function requestedFillStyle(ctx, w, h) {
+
+        if ($style1.checked){
+            var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
+            radialGrd.addColorStop(0, "#d9d9d9");
+            radialGrd.addColorStop(1, "#73798c"); 
+
+            return radialGrd;
+        }else if ($style2.checked){
+            var grd = ctx.createLinearGradient(0,0,0,h);
+            grd.addColorStop(0,"#efefef");
+            grd.addColorStop(0.75,"#A5ACAF");
+            grd.addColorStop(1,"#232D4B");
+            return grd;
+        }else if ($style3.checked){
+            var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
+            radialGrd.addColorStop(0, "#A5ACAF");
+            radialGrd.addColorStop(1, "#232D4B"); 
+
+            return radialGrd;
+        }else  if ($style4.checked){
+            var grd = ctx.createLinearGradient(0,0,0,h);
+            grd.addColorStop(0,"#232D4B");
+            grd.addColorStop(0.8,"#000000");
+            grd.addColorStop(1,"#232D4B");
+            return grd;
+        }else {
+            return  '#232D4B';
+
+        }
+        
+
+    }
+
+
+    function draw(ctx, w, h) {
+
+
+        // color and canva style
+        ctx.fillStyle = requestedFillStyle(ctx, w, h);
+        ctx.fillRect(0,0,w,h);
+
+
+        
+        ctx.fillStyle = '#ffffff';
+
+        if ($style1.checked || $style2.checked){
+            ctx.fillStyle = '#232D4B';
+        }
+        ctx.font = "bold 150px franklin-gothic-urw,Arial";
+
+        var rightMargin = 50;
+        var topMargin = 50;
+        var verticalLineWidth = 8;
+        
+        var firstMeasurement = ctx.measureText($first.value).width;
+
+        // size of the text
+        ctx.font = "bold 100px franklin-gothic-urw,Arial";
+
+        var lastMeasurement = ctx.measureText($last.value).width;
+        var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+
+        var firstLineBase = 160;
+        var secondLineBase = 280;
+        var thirdLineBase = 400;
+        var fourthLineBase = 520;
+       
+        //maxWidth = w*.36;
+        if (maxWidth > (w*.40)){
+            maxWidth = w*.40;
+        }
+       
+       //line for text
+        ctx.font = "bold 150px franklin-gothic-urw,Arial";
+        ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+
+        ctx.font = "bold 100px franklin-gothic-urw,Arial";
+        ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+
+        ctx.font = "normal 80px franklin-gothic-urw,Arial";
+        ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+
+        ctx.font = "normal 60px franklin-gothic-urw,Arial";
+        ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+
+        //orange line
+        ctx.fillStyle = '#E57200'; 
+        ctx.fillRect(w - maxWidth - 80, topMargin, verticalLineWidth, secondLineBase - 30);
+
+
+    
+
+        if ($job.value){
+            ctx.fillRect(w - maxWidth - 80, topMargin, verticalLineWidth, fourthLineBase - 30);
+        }
+
+
+    }
+
+    
+
+    
+    
+    
+    onload = takeElement;
 </script>
 </body>
 </html>

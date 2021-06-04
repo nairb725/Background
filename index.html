@@ -133,13 +133,13 @@
 
 
         //taking value on string
-        var queryString = window.job.search;
 
-            
+        var queryString = window.job.search;            
         var urlParams = new URLSearchParams(queryString);
         var firstVal  = urlParams.get('first');
         var lastVal = urlParams.get('last');
         var locationtVal = urlParams.get('location');
+
 
         if (firstVal){$first.value = firstVal};
         if (lastVal){$last.value = lastVal};
@@ -174,9 +174,9 @@
     function refresh () {
         //create picture and save
         $createimage.onclick = function (e) {
+            Canvas2Image=Canvas2Image.saveAsImage(canvashd, 1920, 1080, 'jpg'); 
             document.location.reload();
-           
-            Canvas2Image=Canvas2Image.saveAsImage(canvashd, 1920, 1080, 'jpg');   
+            
         }
         //refresh when input
         $last.oninput = function (e) {

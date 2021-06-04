@@ -170,7 +170,7 @@
     function refresh () {
         //create picture and save
         $createimage.onclick = function (e) {
-            updateImage();
+            document.location.reload();
            
             Canvas2Image=Canvas2Image.saveAsImage(canvashd, 1920, 1080, 'jpg');   
         }

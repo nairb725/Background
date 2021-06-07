@@ -78,6 +78,9 @@
 
                         <input type="radio" id="style5" name="style" value="5" checked="checked">
                         <label for="style5">5</label>
+
+                        <input type="radio" id="style6" name="style" value="6" checked="checked">
+                        <label for="style6">6</label>
                     </td>
                 </tr>                
             </table>
@@ -119,6 +122,7 @@
         $style3 = document.getElementById('style3');
         $style4 = document.getElementById('style4');
         $style5 = document.getElementById('style5');
+        $style6 = document.getElementById('style6');
 
 
         $imgs = document.getElementById('imgs');
@@ -139,6 +143,7 @@
         var firstVal  = urlParams.get('first');
         var lastVal = urlParams.get('last');
         var locationtVal = urlParams.get('location');
+        var jobVal = urlParams.get('job');
 
 
         if (firstVal){$first.value = firstVal};
@@ -147,7 +152,7 @@
 
         refresh();
         //need first and last to show canva
-        if (firstVal && lastVal){
+        if (firstVal && lastVal&& locationtVal && jobVal){
             updateImage();
         }
     }
@@ -206,6 +211,9 @@
         $style5.oninput = function (e) {
             updateImage();
         }
+        $style6.oninput = function (e) {
+            updateImage();
+        }
 
 
     }
@@ -214,32 +222,24 @@
     function requestedFillStyle(ctx, w, h) {
 
         if ($style1.checked){
-            var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
-            radialGrd.addColorStop(0, "#d9d9d9");
-            radialGrd.addColorStop(1, "#73798c"); 
-
-            return radialGrd;
-        }else if ($style2.checked){
-            var grd = ctx.createLinearGradient(0,0,0,h);
-            grd.addColorStop(0,"#efefef");
-            grd.addColorStop(0.75,"#A5ACAF");
-            grd.addColorStop(1,"#232D4B");
-            return grd;
-        }else if ($style3.checked){
-            var radialGrd = ctx.createRadialGradient(w/2, h*.9, 400, w/2, h*.9, h);
-            radialGrd.addColorStop(0, "#A5ACAF");
-            radialGrd.addColorStop(1, "#232D4B"); 
-
-            return radialGrd;
-        }else  if ($style4.checked){
-            var grd = ctx.createLinearGradient(0,0,0,h);
-            grd.addColorStop(0,"#232D4B");
-            grd.addColorStop(0.8,"#000000");
-            grd.addColorStop(1,"#232D4B");
-            return grd;
-        }else {
             return  '#232D4B';
 
+        }else if ($style2.checked){
+            return  '#232D4B';
+
+        }else if ($style3.checked){
+            return  '#232D4B';
+
+        }else  if ($style4.checked){
+            return  '#232D4B';
+
+        }else if($style5.checked){
+            return  '#232D4B';
+
+        } else if($style6.checked){ 
+            return  '#232D4B';
+        } else{
+            return  '#232D4B';
         }
         
 
@@ -257,56 +257,275 @@
         
         ctx.fillStyle = '#ffffff';
 
-        if ($style1.checked || $style2.checked){
-            ctx.fillStyle = '#232D4B';
-        }
-        ctx.font = "bold 150px franklin-gothic-urw,Arial";
-
-        var rightMargin = 50;
-        var topMargin = 50;
-        var verticalLineWidth = 8;
         
-        var firstMeasurement = ctx.measureText($first.value).width;
+            //style 1 position
+            if ($style1.checked){
+                ctx.font = "bold 150px franklin-gothic-urw,Arial";
 
-        // size of the text
-        ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                var rightMargin = 50;
+                var topMargin = 50;
+                var verticalLineWidth = 8;
 
-        var lastMeasurement = ctx.measureText($last.value).width;
-        var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+                var firstMeasurement = ctx.measureText($first.value).width;
 
-        var firstLineBase = 160;
-        var secondLineBase = 280;
-        var thirdLineBase = 400;
-        var fourthLineBase = 520;
-       
-        //maxWidth = w*.36;
-        if (maxWidth > (w*.40)){
-            maxWidth = w*.40;
-        }
-       
-       //line for text
-        ctx.font = "bold 150px franklin-gothic-urw,Arial";
-        ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+                // size of the text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
 
-        ctx.font = "bold 100px franklin-gothic-urw,Arial";
-        ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+                var lastMeasurement = ctx.measureText($last.value).width;
+                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
 
-        ctx.font = "normal 80px franklin-gothic-urw,Arial";
-        ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+                var firstLineBase = 250;
+                var secondLineBase = 350;
+                var thirdLineBase = 600;
+                var fourthLineBase = 700;
 
-        ctx.font = "normal 60px franklin-gothic-urw,Arial";
-        ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+                //maxWidth = w*.2;
+                if (maxWidth > (w*.2)){
+                    maxWidth = w*.2;
+                }
 
-        //orange line
-        ctx.fillStyle = '#E57200'; 
-        ctx.fillRect(w - maxWidth - 80, topMargin, verticalLineWidth, secondLineBase - 30);
+                //line for text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+
+                
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+
+                
 
 
-    
 
-        if ($job.value){
-            ctx.fillRect(w - maxWidth - 80, topMargin, verticalLineWidth, fourthLineBase - 30);
-        }
+            //style 2 position
+            }else if($style2.checked){
+                ctx.font = "bold 150px franklin-gothic-urw,Arial";
+
+                var rightMargin = 1200;
+                var topMargin = 50;
+                var verticalLineWidth = 8;
+
+                var firstMeasurement = ctx.measureText($first.value).width;
+
+                // size of the text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+
+                var lastMeasurement = ctx.measureText($last.value).width;
+                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+
+                var firstLineBase = 200;
+                var secondLineBase = 300;
+                var thirdLineBase = 550;
+                var fourthLineBase = 650;
+
+                //maxWidth = w*.2;
+                if (maxWidth > (w*.2)){
+                    maxWidth = w*.2;
+                }
+
+                //line for text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+
+                
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+
+               
+
+
+
+            //style 3 position
+            }else if($style3.checked){
+                ctx.font = "bold 150px franklin-gothic-urw,Arial";
+
+                var rightMargin = 1350;
+                var topMargin = 30;
+                var verticalLineWidth = 8;
+
+                var firstMeasurement = ctx.measureText($first.value).width;
+
+                // size of the text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+
+                var lastMeasurement = ctx.measureText($last.value).width;
+                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+
+                var firstLineBase = 200;
+                var secondLineBase = 300;
+                var thirdLineBase = 550;
+                var fourthLineBase = 650;
+
+                //maxWidth = w*.2;
+                if (maxWidth > (w*.2)){
+                    maxWidth = w*.2;
+                }
+
+                //line for text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+
+                
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+
+
+
+
+            //style 4 position
+            }else if($style4.checked){
+                ctx.font = "bold 150px franklin-gothic-urw,Arial";
+
+                var rightMargin = 1400;
+                var topMargin = 30;
+                var verticalLineWidth = 8;
+
+                var firstMeasurement = ctx.measureText($first.value).width;
+
+                // size of the text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+
+                var lastMeasurement = ctx.measureText($last.value).width;
+                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+
+                var firstLineBase = 150;
+                var secondLineBase = 250;
+                var thirdLineBase = 550;
+                var fourthLineBase = 650;
+
+                //maxWidth = w*.2;
+                if (maxWidth > (w*.2)){
+                    maxWidth = w*.2;
+                }
+
+               //line for text
+               ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+
+                
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+
+               
+
+
+                
+            //style 5 position
+            }else if($style5.checked){
+                ctx.font = "bold 150px franklin-gothic-urw,Arial";
+
+                var rightMargin = 1450;
+                var topMargin = 50;
+                var verticalLineWidth = 8;
+
+                var firstMeasurement = ctx.measureText($first.value).width;
+
+                // size of the text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+
+                var lastMeasurement = ctx.measureText($last.value).width;
+                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+
+                var firstLineBase = 250;
+                var secondLineBase = 350;
+                var thirdLineBase = 600;
+                var fourthLineBase = 700;
+
+                //maxWidth = w*.2;
+                if (maxWidth > (w*.2)){
+                    maxWidth = w*.2;
+                }
+
+                //line for text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+
+                
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+
+               
+            //style 6 position
+            }else if($style6.checked){
+                ctx.font = "bold 150px franklin-gothic-urw,Arial";
+
+                var rightMargin = 1450;
+                var topMargin = 50;
+                var verticalLineWidth = 8;
+
+                var firstMeasurement = ctx.measureText($first.value).width;
+
+                // size of the text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+
+                var lastMeasurement = ctx.measureText($last.value).width;
+                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+
+                var firstLineBase = 150;
+                var secondLineBase = 250;
+                var thirdLineBase = 700;
+                var fourthLineBase = 800;
+
+                //maxWidth = w*.2;
+                if (maxWidth > (w*.2)){
+                    maxWidth = w*.2;
+                }
+
+                //line for text
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+
+                ctx.font = "bold 50px franklin-gothic-urw,Arial";
+                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+
+                
+                ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+
+               
+
+            }
+            
+            
+            
+
+
+        
+        
+
+        
 
 
     }

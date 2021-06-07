@@ -126,8 +126,8 @@
 
 
         $imgs = document.getElementById('imgs');
-        //get id text
-        $first =document.getElementById('first');
+        //get text id
+        $first = document.getElementById('first');
         $last = document.getElementById('last');
         $job = document.getElementById('job');
         $location = document.getElementById('location');
@@ -177,13 +177,13 @@
 
 
     function refresh () {
-        //create picture and save
+        //save the picture
         $createimage.onclick = function (e) {
             Canvas2Image=Canvas2Image.saveAsImage(canvashd, 1920, 1080, 'jpg'); 
             document.location.reload();
             
         }
-        //refresh when input
+        //refresh
         $last.oninput = function (e) {
             updateImage();
         } 

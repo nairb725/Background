@@ -61,25 +61,25 @@
                 </tr>  
                 <tr id="style">
                     <th>
-                        Styles:
+                        Choose your background:
                     </th>
                     <td>
-                        <input type="radio" id="style1" name="style" value="1" checked="checked">
+                        <input type="radio" id="style1" name="style" value="1" class="style1" checked="checked">
                         <label for="style1">1</label>
                         
-                        <input type="radio" id="style2" name="style" value="2" checked="checked">
+                        <input type="radio" id="style2" name="style" value="2" class="style2" >
                         <label for="style2">2</label>
 
-                        <input type="radio" id="style3" name="style" value="3" checked="checked">
+                        <input type="radio" id="style3" name="style" value="3" class="style3" >
                         <label for="style3">3</label>
 
-                        <input type="radio" id="style4" name="style" value="4" checked="checked">
+                        <input type="radio" id="style4" name="style" value="4" class="style4" >
                         <label for="style4">4</label>
 
-                        <input type="radio" id="style5" name="style" value="5" checked="checked">
+                        <input type="radio" id="style5" name="style" value="5" class="style5" >
                         <label for="style5">5</label>
 
-                        <input type="radio" id="style6" name="style" value="6" checked="checked">
+                        <input type="radio" id="style6" name="style" value="6" class="style6" >
                         <label for="style6">6</label>
                     </td>
                 </tr>                
@@ -89,18 +89,21 @@
 
     </div>
     <!---canva picture-->
-    <div id="imgs" width="800" height="600">
+    <div id="imgs" width="800" height="600"></div>
+    
         
     </div>
     <div id="explanation" style="display:none"></div>
         
     </div>
-    <a id="downloadlink" download="zoombackground.jpg" href="">Download Background</a>
+    
 
     
 
 </div>
 <script>
+
+
     var canvas, canvashd, ctxorig, ctxhd,
      $createimage,$imgs,$placeLeft, $placeRight,$first, $last, $job, $location, $style1, $style2, $style3, $style4, $style5;
 

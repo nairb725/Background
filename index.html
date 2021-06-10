@@ -9,11 +9,14 @@
 <body>
 
 <!---text area-->
-<div class="bloc">
+<div class="bloc" >
     <h1>Background For Teams</h1>
 
     <canvas width="1920" height="1080" id="cvshd"></canvas>
-    <canvas width="1600" height="1200" id="cvs"></canvas>
+    
+
+    
+   
 
 
 
@@ -45,10 +48,10 @@
                 </tr>  
                 <tr>
                     <th> 
-                         Job:<br/>
+                         Entity:<br/>
                     </th>
                     <td>
-                        <input type="text" id="job" placeholder="Job" tabindex="3">
+                        <input type="text" id="Entity" placeholder="Entity" tabindex="3">
                     </td>
                 </tr> 
                 <tr>
@@ -96,6 +99,8 @@
     <div id="explanation" style="display:none"></div>
         
     </div>
+<a id="downloadlink" download="zoombackground.jpg" href="">Download Background</a>
+    
     
 
     
@@ -104,17 +109,17 @@
 <script>
 
 
-    var canvas, canvashd, ctxorig, ctxhd,
-     $createimage,$imgs,$placeLeft, $placeRight,$first, $last, $job, $location, $style1, $style2, $style3, $style4, $style5;
+    var  canvashd, ctxhd,
+     $createimage,$imgs,$placeLeft, $placeRight,$first, $last, $Entity, $location, $style1, $style2, $style3, $style4, $style5;
 
 
 
     function takeElement () {
-        canvas = document.getElementById('cvs');
+        
         canvashd = document.getElementById('cvshd');
 
 
-        ctxorig = canvas.getContext('2d');
+        
         ctxhd = canvashd.getContext('2d');
 
         
@@ -132,8 +137,10 @@
         //get text id
         $first = document.getElementById('first');
         $last = document.getElementById('last');
-        $job = document.getElementById('job');
+        $Entity = document.getElementById('Entity');
         $location = document.getElementById('location');
+
+        
 
         //$placeLeft = document.getElementById('placeLeft');
         //$placeRight = document.getElementById('placeRight');
@@ -141,12 +148,12 @@
 
         //taking value on string
 
-        var queryString = window.job.search;            
+        var queryString = window.Entity.search;            
         var urlParams = new URLSearchParams(queryString);
         var firstVal  = urlParams.get('first');
         var lastVal = urlParams.get('last');
         var locationtVal = urlParams.get('location');
-        var jobVal = urlParams.get('job');
+        var EntityVal = urlParams.get('Entity');
 
 
         if (firstVal){$first.value = firstVal};
@@ -155,14 +162,14 @@
 
         refresh();
         //need first and last to show canva
-        if (firstVal && lastVal&& locationtVal && jobVal){
+        if (firstVal && lastVal&& locationtVal && EntityVal){
             updateImage();
         }
     }
 
     //canva resolution canva to picture
     function drawHD(){
-        draw(ctxhd, 1920, 1080);
+        draw (ctxhd, 1920, 1080);
             document.getElementById('explanation').style="display:block";
 
             var type = 'jpg',
@@ -193,7 +200,7 @@
         $first.oninput = function (e) {
             updateImage();
         }
-        $job.oninput = function (e) {
+        $Entity.oninput = function (e) {
             updateImage();
         }
         $location.oninput = function (e) {
@@ -265,7 +272,8 @@
             if ($style1.checked){
                 ctx.font = "bold 150px franklin-gothic-urw,Arial";
 
-                var rightMargin = 50;
+                
+                var rightMargin = 1780; 
                 var topMargin = 50;
                 var verticalLineWidth = 8;
 
@@ -273,33 +281,34 @@
 
                 // size of the text
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-
+                
                 var lastMeasurement = ctx.measureText($last.value).width;
-                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+                
 
                 var firstLineBase = 250;
                 var secondLineBase = 350;
                 var thirdLineBase = 600;
                 var fourthLineBase = 700;
 
-                //maxWidth = w*.2;
-                if (maxWidth > (w*.2)){
-                    maxWidth = w*.2;
-                }
+                
 
                 //line for text
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+                ctx.textAlign = 'right';
+                ctx.fillText($first.value,  rightMargin, firstLineBase, );
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+                ctx.textAlign = 'right';
+                ctx.fillText($last.value, rightMargin, secondLineBase,);
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+                ctx.textAlign = 'right';
+                ctx.fillText($Entity.value, rightMargin, thirdLineBase, );
 
                 
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+                ctx.textAlign = 'right';
+                ctx.fillText($location.value, rightMargin, fourthLineBase,);
 
                 
 
@@ -309,7 +318,7 @@
             }else if($style2.checked){
                 ctx.font = "bold 150px franklin-gothic-urw,Arial";
 
-                var rightMargin = 1200;
+                var rightMargin = 500;
                 var topMargin = 50;
                 var verticalLineWidth = 8;
 
@@ -319,31 +328,32 @@
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
 
                 var lastMeasurement = ctx.measureText($last.value).width;
-                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+                
 
                 var firstLineBase = 200;
                 var secondLineBase = 300;
                 var thirdLineBase = 550;
                 var fourthLineBase = 650;
 
-                //maxWidth = w*.2;
-                if (maxWidth > (w*.2)){
-                    maxWidth = w*.2;
-                }
+               
 
                 //line for text
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($first.value,  rightMargin, firstLineBase, );
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($last.value, rightMargin, secondLineBase,);
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($Entity.value, rightMargin, thirdLineBase, );
 
                 
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($location.value, rightMargin, fourthLineBase,);
 
                
 
@@ -353,7 +363,7 @@
             }else if($style3.checked){
                 ctx.font = "bold 150px franklin-gothic-urw,Arial";
 
-                var rightMargin = 1350;
+                var rightMargin = 400;
                 var topMargin = 30;
                 var verticalLineWidth = 8;
 
@@ -363,31 +373,32 @@
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
 
                 var lastMeasurement = ctx.measureText($last.value).width;
-                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+                
 
                 var firstLineBase = 200;
                 var secondLineBase = 300;
                 var thirdLineBase = 550;
                 var fourthLineBase = 650;
 
-                //maxWidth = w*.2;
-                if (maxWidth > (w*.2)){
-                    maxWidth = w*.2;
-                }
+                
 
                 //line for text
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($first.value,  rightMargin, firstLineBase, );
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($last.value, rightMargin, secondLineBase,);
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($Entity.value, rightMargin, thirdLineBase, );
 
                 
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($location.value, rightMargin, fourthLineBase,);
 
 
 
@@ -396,7 +407,7 @@
             }else if($style4.checked){
                 ctx.font = "bold 150px franklin-gothic-urw,Arial";
 
-                var rightMargin = 1400;
+                var rightMargin = 300;
                 var topMargin = 30;
                 var verticalLineWidth = 8;
 
@@ -406,31 +417,32 @@
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
 
                 var lastMeasurement = ctx.measureText($last.value).width;
-                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+                
 
                 var firstLineBase = 150;
                 var secondLineBase = 250;
-                var thirdLineBase = 550;
-                var fourthLineBase = 650;
+                var thirdLineBase = 450;
+                var fourthLineBase = 550;
 
-                //maxWidth = w*.2;
-                if (maxWidth > (w*.2)){
-                    maxWidth = w*.2;
-                }
+                
 
-               //line for text
-               ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+              //line for text
+              ctx.font = "bold 100px franklin-gothic-urw,Arial";
+                ctx.textAlign = 'left';
+                ctx.fillText($first.value,  rightMargin, firstLineBase, );
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($last.value, rightMargin, secondLineBase,);
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($Entity.value, rightMargin, thirdLineBase, );
 
                 
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($location.value, rightMargin, fourthLineBase,);
 
                
 
@@ -440,7 +452,7 @@
             }else if($style5.checked){
                 ctx.font = "bold 150px franklin-gothic-urw,Arial";
 
-                var rightMargin = 1450;
+                var rightMargin = 250;
                 var topMargin = 50;
                 var verticalLineWidth = 8;
 
@@ -450,38 +462,39 @@
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
 
                 var lastMeasurement = ctx.measureText($last.value).width;
-                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+                
 
                 var firstLineBase = 250;
                 var secondLineBase = 350;
                 var thirdLineBase = 600;
                 var fourthLineBase = 700;
 
-                //maxWidth = w*.2;
-                if (maxWidth > (w*.2)){
-                    maxWidth = w*.2;
-                }
+                
 
                 //line for text
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($first.value,  rightMargin, firstLineBase, );
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($last.value, rightMargin, secondLineBase,);
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($Entity.value, rightMargin, thirdLineBase, );
 
                 
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($location.value, rightMargin, fourthLineBase,);
 
                
             //style 6 position
             }else if($style6.checked){
                 ctx.font = "bold 150px franklin-gothic-urw,Arial";
 
-                var rightMargin = 1450;
+                var rightMargin = 100;
                 var topMargin = 50;
                 var verticalLineWidth = 8;
 
@@ -491,32 +504,32 @@
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
 
                 var lastMeasurement = ctx.measureText($last.value).width;
-                var maxWidth = firstMeasurement > lastMeasurement ? firstMeasurement : lastMeasurement;
+                
 
                 var firstLineBase = 150;
                 var secondLineBase = 250;
                 var thirdLineBase = 700;
                 var fourthLineBase = 800;
 
-                //maxWidth = w*.2;
-                if (maxWidth > (w*.2)){
-                    maxWidth = w*.2;
-                }
+                
 
                 //line for text
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($first.value, w - maxWidth - rightMargin, firstLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($first.value,  rightMargin, firstLineBase, );
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($last.value, w - maxWidth - rightMargin, secondLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($last.value, rightMargin, secondLineBase,);
 
                 ctx.font = "bold 50px franklin-gothic-urw,Arial";
-                ctx.fillText($job.value, w - maxWidth - rightMargin, thirdLineBase, maxWidth );
+                ctx.textAlign = 'left';
+                ctx.fillText($Entity.value, rightMargin, thirdLineBase, );
 
                 
                 ctx.font = "bold 100px franklin-gothic-urw,Arial";
-                ctx.fillText($location.value, w - maxWidth - rightMargin, fourthLineBase, maxWidth );
-
+                ctx.textAlign = 'left';
+                ctx.fillText($location.value, rightMargin, fourthLineBase,);
                
 
             }
